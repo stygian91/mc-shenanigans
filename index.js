@@ -20,4 +20,8 @@ parser.addArgument(
 );
 const args = parser.parseArgs();
 
-new App(args.p).start();
+try {
+    new App(args.p).start();
+} catch(error) {
+    console.error(error);
+}

@@ -2,7 +2,7 @@ const mysql = require('mysql');
 
 module.exports = () => {
     const env = process.env;
-    
+
     return mysql.createConnection({
         host: env.DB_HOST,
         user: env.DB_USER,
