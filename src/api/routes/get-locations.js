@@ -5,14 +5,17 @@ const createConnection = require('../create-connection');
 module.exports = (req, res, next) => {
     const connection = createConnection();
 
-    connection.query("SELECT * FROM `locations`", (error, results) => {
-        if (error) {
-            throw error;
-        }
+    return new Promise(resolve => {
+        connection.query("SELECT * FROM `locations`", (error, results) => {
+            if (error) {
+                throw error;
+            }
 
-        res.send(JSON.stringify(results));
+            res.send(JSON.stringify(results));
+            resolve();
+        });
+    }).finally(() => {
+        connection.end();
         next();
     });
-
-    connection.end();
 }
