@@ -9,7 +9,15 @@ const parser = new ArgumentParser({
   addHelp: true,
 });
 
-parser.addArgument(['-p'], { required: false, defaultValue: 3000, type: 'int' });
+parser.addArgument(
+    ['-p'],
+    {
+        required: false,
+        defaultValue: 3000,
+        type: 'int',
+        help: 'The port that the webserver will listen to. Default is 3000.'
+    }
+);
 const args = parser.parseArgs();
 
 new App(args.p).start();
