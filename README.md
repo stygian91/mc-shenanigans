@@ -1,3 +1,7 @@
+# Prerequisites
+
+Have a working mysql server.
+
 # Install & Build
 
 First create and edit the config file `.env`:

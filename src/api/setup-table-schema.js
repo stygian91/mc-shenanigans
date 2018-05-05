@@ -35,6 +35,8 @@ module.exports = () => {
             if (!results.length) {
                 return createTable(connection);
             }
+
+            resolve();
         });
     }).finally(() => connection.end());
 };
