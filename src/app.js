@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 
-const registerApiRoutes = require('./api/register-routes');
+const apiRouter = require('./api/api-router');
 const setupMysqlTableSchema = require('./api/setup-table-schema');
 
 class App {
@@ -13,7 +13,7 @@ class App {
     start() {
         return setupMysqlTableSchema()
             .then(() => {
-                registerApiRoutes(this.server);
+                this.server.use('/api', apiRouter);
                 this.server.use('/', express.static(path.join(__dirname, '..', 'public')));
                 this.server.listen(this.port, () => console.log(`Listening on port ${this.port}`));
             }).catch(console.error);
