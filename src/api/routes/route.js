@@ -2,14 +2,31 @@ const mysql = require('mysql');
 
 const createConnection = require('../create-connection');
 
-module.exports = ({sql, onSuccess}) => (req, res) => {
+const onErrorDefault = (error, req, res) => {
+    res
+        .status(500)
+        .send(`An error occured.`);
+};
+
+const validateReqDefault = (req, res) => true;
+
+module.exports =
+({
+    sql,
+    onSuccess,
+    onError = onErrorDefault,
+    validateReq = validateReqDefault,
+}) => (req, res) => {
+    if (!validateReq(req, res)) {
+        return;
+    }
+
     const connection = createConnection();
 
-    return new Promise(resolve => {
+    new Promise(resolve => {
         connection.query(sql(req), (error, dbResults, fields) => {
             if (error) {
-                res.status(500);
-                res.send(`An error occured.`);
+                onError(error, req, res);
                 resolve();
             }
 
