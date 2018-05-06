@@ -18,22 +18,26 @@ module.exports =
     validateReq = validateReqDefault,
 }) => (req, res) => {
     if (!validateReq(req, res)) {
+        res.send(`Invalid argument(s).`);
         return;
     }
 
     const connection = createConnection();
 
-    new Promise(resolve => {
+    new Promise((resolve, reject) => {
         connection.query(sql(req), (error, dbResults, fields) => {
             if (error) {
-                onError(error, req, res);
-                resolve();
+                reject(error);
             }
 
             onSuccess({req, res, dbResults, fields});
             resolve();
         });
-    }).finally(() => {
+    })
+    .catch(error => {
+        onError(error, req, res);
+    })
+    .finally(() => {
         connection.end();
     });
 }
