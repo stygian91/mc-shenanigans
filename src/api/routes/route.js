@@ -5,7 +5,7 @@ const createConnection = require('../create-connection');
 const onErrorDefault = (error, req, res) => {
     res
         .status(500)
-        .send(`An error occured.`);
+        .send(error.toString());
 };
 
 const validateReqDefault = (req, res) => true;
@@ -28,6 +28,7 @@ module.exports =
         connection.query(sql(req), (error, dbResults, fields) => {
             if (error) {
                 reject(error);
+                return;
             }
 
             onSuccess({req, res, dbResults, fields});

@@ -5,7 +5,7 @@ const createConnection = require('./create-connection');
 const createTable = connection => {
     const sql = `
         CREATE TABLE \`locations\` (
-          \`name\` varchar(256) CHARACTER SET utf8 NOT NULL,
+          \`name\` varchar(100) CHARACTER SET utf8 NOT NULL PRIMARY KEY,
           \`x\` double NOT NULL,
           \`y\` double NOT NULL,
           \`z\` double NOT NULL
@@ -38,5 +38,7 @@ module.exports = () => {
 
             resolve();
         });
-    }).finally(() => connection.end());
+    })
+    .catch(console.error)
+    .finally(() => connection.end());
 };
