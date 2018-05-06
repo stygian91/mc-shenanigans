@@ -14,7 +14,7 @@ module.exports = route({
         }
 
         for (let coord of ['x', 'y', 'z']) {
-            if (!req.query.hasOwnProperty(coord) || isNaN(parseFloat(req.query[coord]))) {
+            if (!req.body.hasOwnProperty(coord) || isNaN(parseFloat(req.body[coord]))) {
                 return false;
             }
         }
@@ -24,7 +24,7 @@ module.exports = route({
 
     sql: (req) => {
         const name = req.params.name.trim();
-        const {x, y, z} = req.query;
+        const {x, y, z} = req.body;
 
         return mysql.format(
             "INSERT INTO `locations`(`name`, `x`, `y`, `z`) VALUES(?, ?, ?, ?)",
