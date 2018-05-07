@@ -1,5 +1,6 @@
 .env
 node_modules
 public/index.html
+public/docs.html
 public/bundle.css
 public/bundle.js

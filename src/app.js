@@ -1,22 +1,23 @@
 const path = require('path');
 const express = require('express');
+const cors = require('cors');
 
 const apiRouter = require('./api/api-router');
 const setupMysqlTableSchema = require('./api/setup-table-schema');
 
 class App {
-    constructor(port = 3000) {
-        this.port = port;
+    constructor() {
         this.server = express();
+        this.server.use(cors());
+        this.server.use('/api', apiRouter);
+        this.server.use('/', express.static(path.join(__dirname, '..', 'public')));
     }
 
-    start() {
-        return setupMysqlTableSchema()
+    start(port = 3000) {
+        setupMysqlTableSchema()
             .then(() => {
-                this.server.use('/api', apiRouter);
-                this.server.use('/', express.static(path.join(__dirname, '..', 'public')));
-                this.server.listen(this.port, () => console.log(`Listening on port ${this.port}`));
-            }).catch(console.error);
+                this.server.listen(port, () => console.log(`Listening on port ${port}`));
+            }).catch(error => console.error(error));
     }
 }
 

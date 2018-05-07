@@ -21,7 +21,7 @@ parser.addArgument(
 const args = parser.parseArgs();
 
 try {
-    new App(args.p).start();
+    new App().start(args.p);
 } catch(error) {
     console.error(error);
 }
