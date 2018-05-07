@@ -2,5 +2,6 @@
 node_modules
 public/index.html
 public/docs.html
+public/examples.txt
 public/bundle.css
 public/bundle.js

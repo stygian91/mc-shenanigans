@@ -26,6 +26,7 @@ const parseRange = (query, key) => {
 const sql = (req) => {
     let sqlString = "SELECT * FROM `locations` WHERE 1=1 ";
 
+    // add range constraints if any:
     const ranges = {
         x: parseRange(req.query, 'range_x'),
         y: parseRange(req.query, 'range_y'),
@@ -43,6 +44,17 @@ const sql = (req) => {
         sqlString += ' AND ( ?? >= ? AND ?? <= ? ) ';
         inserts = inserts.concat([coord, range[0], coord, range[1]]);
     }
+
+    // add paging
+    let page = parseInt(req.query.page);
+    if (isNaN(page) || page < 1) {
+        page = 1;
+    }
+
+    const perPage = require('../config').locationsPerPage;
+    const offset = (page - 1) * perPage;
+    const limit = ` LIMIT ${offset}, ${perPage} `;
+    sqlString += limit;
 
     return mysql.format(sqlString, inserts);
 };
