@@ -5,7 +5,7 @@ const createConnection = require('../create-connection');
 const onErrorDefault = (error, req, res) => {
     res
         .status(500)
-        .send(error.toString());
+        .send({ success: false, error: error.toString() });
 };
 
 const validateReqDefault = (req, res) => true;

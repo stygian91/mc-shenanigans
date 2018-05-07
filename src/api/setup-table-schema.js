@@ -1,7 +1,5 @@
 const createConnection = require('./create-connection');
 
-// TODO: remove hardcoded table name
-
 const schemas = {
     locations: `
         CREATE TABLE \`locations\` (

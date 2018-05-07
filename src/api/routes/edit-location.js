@@ -11,8 +11,8 @@ module.exports = route({
         const {x, y, z} = req.body;
 
         return mysql.format(
-            "INSERT INTO `locations`(`name`, `x`, `y`, `z`) VALUES(?, ?, ?, ?)",
-            [name, x, y, z]
+            "UPDATE `locations` SET `x` = ?, `y` = ? , `z` = ? WHERE `name` = ?",
+            [x, y, z, name]
         )
     },
     onSuccess: ({res, dbResults}) => res.send({ success: true }),

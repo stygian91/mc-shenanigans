@@ -4,4 +4,7 @@ const App = require('./app');
 const app = new App();
 const docs = new Docs(app.server);
 
-docs.generate({ path: path.join(__dirname, '..', 'public/docs.html') });
+docs.generate({
+    path: path.join(__dirname, '../public/docs.html'),
+    examples: path.join(__dirname, '../public/examples.txt'),
+});

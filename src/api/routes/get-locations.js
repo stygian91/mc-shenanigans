@@ -49,5 +49,5 @@ const sql = (req) => {
 
 module.exports = route({
     sql,
-    onSuccess: ({res, dbResults}) => res.send(JSON.stringify(dbResults)),
+    onSuccess: ({res, dbResults}) => res.send(dbResults),
 });
