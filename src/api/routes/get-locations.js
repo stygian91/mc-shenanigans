@@ -45,6 +45,9 @@ const sql = (req) => {
         inserts = inserts.concat([coord, range[0], coord, range[1]]);
     }
 
+    // add ordering
+    sqlString += " ORDER BY `name` ASC ";
+
     // add paging
     let page = parseInt(req.query.page);
     if (isNaN(page) || page < 1) {
