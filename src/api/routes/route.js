@@ -31,10 +31,9 @@ module.exports =
                 return;
             }
 
-            onSuccess({req, res, dbResults, fields})
+            onSuccess({connection, req, res, dbResults, fields})
                 .then(() => resolve())
                 .catch(error => reject(error));
-            resolve();
         });
     })
     .catch(error => {

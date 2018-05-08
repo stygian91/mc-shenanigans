@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 
 const route = require('./route');
+const perPage = require('../config').locationsPerPage;
 
 const parseRange = (query, key) => {
     if (!query.hasOwnProperty(key) || typeof query[key] !== 'string') {
@@ -24,7 +25,7 @@ const parseRange = (query, key) => {
 }
 
 const sql = (req) => {
-    let sqlString = "SELECT * FROM `locations` WHERE 1=1 ";
+    let sqlString = "SELECT SQL_CALC_FOUND_ROWS * FROM `locations` WHERE 1=1 ";
 
     // add range constraints if any:
     const ranges = {
@@ -54,7 +55,6 @@ const sql = (req) => {
         page = 1;
     }
 
-    const perPage = require('../config').locationsPerPage;
     const offset = (page - 1) * perPage;
     const limit = ` LIMIT ${offset}, ${perPage} `;
     sqlString += limit;
@@ -64,10 +64,22 @@ const sql = (req) => {
 
 module.exports = route({
     sql,
-    onSuccess: ({res, dbResults}) => {
-        return new Promise(resolve => {
-            res.send(dbResults);
+    onSuccess: ({connection, res, dbResults}) => new Promise(resolve => {
+        connection.query("SELECT FOUND_ROWS()", (error, foundRowResults) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+
+            if (!foundRowResults.length || !foundRowResults[0].hasOwnProperty('FOUND_ROWS()')) {
+                reject('Error while trying to find total number of results.');
+                return;
+            }
+
+            const totalResults = foundRowResults[0]['FOUND_ROWS()'];
+            const totalPages = Math.ceil(totalResults / parseFloat(perPage));
+            res.send({totalPages, locations: dbResults});
             resolve();
         });
-    },
+    }),
 });
