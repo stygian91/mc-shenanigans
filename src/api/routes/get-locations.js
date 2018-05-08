@@ -64,5 +64,10 @@ const sql = (req) => {
 
 module.exports = route({
     sql,
-    onSuccess: ({res, dbResults}) => res.send(dbResults),
+    onSuccess: ({res, dbResults}) => {
+        return new Promise(resolve => {
+            res.send(dbResults);
+            resolve();
+        });
+    },
 });

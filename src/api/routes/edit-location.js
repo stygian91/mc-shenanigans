@@ -15,5 +15,10 @@ module.exports = route({
             [x, y, z, name]
         )
     },
-    onSuccess: ({res, dbResults}) => res.send({ success: true }),
+    onSuccess: ({res, dbResults}) => {
+        return new Promise(resolve => {
+            res.send({ success: true });
+            resolve();
+        });
+    },
 });
