@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 
 const route = require('./route');
+// TODO: make this a default value and get per page from request if it has it
 const perPage = require('../config').locationsPerPage;
 
 const parseRange = (query, key) => {
