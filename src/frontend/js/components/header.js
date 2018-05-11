@@ -9,10 +9,6 @@ export default props => (
 
         <nav className="my-2 my-md-0 mr-md-3">
             <Link className="p-2 text-dark" to="/list">List Locations</Link>
-            <Link className="p-2 text-dark" to="/get-location">Get a Location</Link>
-            <Link className="p-2 text-dark" to="/add-location">Add a location</Link>
-            <Link className="p-2 text-dark" to="/edit-location">Edit a location</Link>
-            <Link className="p-2 text-dark" to="/delete-location">Delete a location</Link>
         </nav>
 
         <Link className="btn btn-outline-primary" to="#">Sign up</Link>

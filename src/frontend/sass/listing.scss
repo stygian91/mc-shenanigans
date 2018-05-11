@@ -1,3 +1,12 @@
 .listing {
     .title { margin-bottom: 50px; }
 }
+
+.list-paging {
+    width: 100%;
+    text-align: center;
+
+    &__prev {
+        margin-right: 10px;
+    }
+}

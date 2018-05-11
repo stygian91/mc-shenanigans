@@ -18,7 +18,9 @@ module.exports =
     validateReq = validateReqDefault,
 }) => (req, res) => {
     if (!validateReq(req, res)) {
-        res.send(`Invalid argument(s).`);
+        res
+            .status(400)
+            .send({success: false, error: {code: 'API_INVALID_ARGS', message: 'Invalid argument(s).'}});
         return;
     }
 

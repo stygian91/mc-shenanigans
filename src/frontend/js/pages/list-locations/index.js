@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import LocationsTable from './table';
 import Paging from './paging';
+import AddLocation from './add-location';
 
 class ListLocations extends React.Component {
     constructor(props) {
@@ -49,6 +50,8 @@ class ListLocations extends React.Component {
                 <LocationsTable items={this.state.items}/>
 
                 <Paging page={this.state.page} totalPages={this.state.totalPages}/>
+
+                <AddLocation />
             </div>
         );
     }
