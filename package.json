@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --ignore src/frontend ./index.js"
+    "start": "nodemon --ignore ./src/frontend --ignore ./public ./index.js"
   },
   "author": "",
   "license": "ISC",

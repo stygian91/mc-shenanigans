@@ -18,7 +18,7 @@ cd src/frontend
 npm install
 npm run build # or `npm run dev` in a new console if you want to watch the frontend src for changes
 cd ../../
-npm run start # you can pass `-p PORT` to change server port
+yarn run start # you can add `-- -p PORT` to change server port
 ```
 
 You can (and should) use `yarn` in place of `npm`, it's much faster https://yarnpkg.com/en/.

@@ -3,6 +3,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 const plugins = [
     new ExtractTextPlugin('bundle.css'),
     new HtmlWebpackPlugin({
@@ -10,8 +12,6 @@ const plugins = [
         template: './html/index.html',
     }),
 ];
-
-const isDev = process.env.NODE_ENV !== 'production';
 
 if (!isDev) {
     plugins.push(new UglifyJSPlugin({
