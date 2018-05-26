@@ -15,13 +15,12 @@ import rootSaga from './sagas';
 const sagaMiddleware = createSagaMiddleWare();
 const routerMiddleware = createRouterMiddleware();
 
+/* eslint no-underscore-dangle: 0 */
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
+/* eslint no-underscore-dangle: 1 */
 const store = createStore(
-    rootReducer,
-    composeEnhancers(
-        applyMiddleware(routerMiddleware, sagaMiddleware)
-    )
+  rootReducer,
+  composeEnhancers(applyMiddleware(routerMiddleware, sagaMiddleware)),
 );
 
 sagaMiddleware.run(rootSaga);

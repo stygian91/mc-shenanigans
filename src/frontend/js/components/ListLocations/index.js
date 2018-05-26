@@ -1,38 +1,38 @@
 import React from 'react';
-import axios from 'axios';
 
 import LocationsTable from './Table';
 import Paging from './Paging';
-import AddLocation from './AddLocation';
+import AddLocation from '../../containers/AddLocationContainer';
 
 class ListLocations extends React.Component {
-    componentDidMount() {
-        this.requestCurrentPage();
+  componentDidMount() {
+    this.requestCurrentPage();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.page !== this.props.page) {
+      this.requestCurrentPage();
     }
+  }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.page !== this.props.page) {
-            this.requestCurrentPage();
-        }
-    }
+  requestCurrentPage = () => {
+    this.props.setCurrentPage(this.props.page);
+    this.props.requestPage(this.props.page);
+  };
 
-    requestCurrentPage = () => {
-        this.props.requestPage(this.props.page);
-    }
+  render() {
+    return (
+      <div className="listing">
+        <h1 className="title text-center">Location Listing</h1>
 
-    render() {
-        return (
-            <div className="listing">
-                <h1 className="title text-center">Location Listing</h1>
+        <LocationsTable requestDeleteItem={this.props.requestDeleteItem} items={this.props.items} />
 
-                <LocationsTable items={this.props.items}/>
+        <Paging page={this.props.page} totalPages={this.props.totalPages} />
 
-                <Paging page={this.props.page} totalPages={this.props.totalPages}/>
-
-                <AddLocation />
-            </div>
-        );
-    }
+        <AddLocation />
+      </div>
+    );
+  }
 }
 
 export default ListLocations;

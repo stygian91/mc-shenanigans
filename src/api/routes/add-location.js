@@ -35,6 +35,6 @@ module.exports = route({
 
         res
             .status(status)
-            .send({success: false, error: {code: error.code, message: error.sqlMessage}});
+            .send({ success: false, error: { code: error.code, message: error.sqlMessage } });
     },
 });

@@ -1,24 +1,28 @@
-import React from 'react';
 import { connect } from 'react-redux';
 
-import { requestItems } from '../actions';
+import { requestItems, requestDeleteItem, setPage } from '../actions';
 import ListLocations from '../components/ListLocations';
 
-const mapStateToProps = (state, { match: { params: params } }) => {
-    const page = parseInt(params.page) || 1;
+const mapStateToProps = (state, { match: { params } }) => {
+  let page = parseInt(params.page);
+  if (Number.isNaN(page) || page < 1) {
+    page = 1;
+  }
 
-    return {
-        items: state.listing.items,
-        page,
-        totalPages: state.listing.totalPages,
-    };
+  return {
+    items: state.listing.items,
+    page,
+    totalPages: state.listing.totalPages,
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
-    requestPage: page => dispatch(requestItems(page)),
+  setCurrentPage: page => dispatch(setPage(page)),
+  requestPage: page => dispatch(requestItems(page)),
+  requestDeleteItem: name => dispatch(requestDeleteItem(name)),
 });
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(ListLocations);

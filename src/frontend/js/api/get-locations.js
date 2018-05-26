@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-export default ({page}) => {
-    return axios({
-        url: '/api/locations/',
-        method: 'GET',
-        params: { page },
-    });
-}
+export default ({ page }) => axios({
+  url: '/api/locations/',
+  method: 'GET',
+  params: { page },
+});

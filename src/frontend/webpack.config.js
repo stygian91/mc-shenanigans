@@ -26,7 +26,8 @@ module.exports = {
 
     entry: [
         'babel-polyfill',
-        './js/bootstrap.js'
+        './js/bootstrap.js',
+        './sass/bootstrap.scss',
     ],
 
     output: {
@@ -39,16 +40,25 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['@babel/preset-env', '@babel/preset-react'],
-                        plugins: [
-                            require('@babel/plugin-proposal-object-rest-spread'),
-                            require('@babel/plugin-proposal-class-properties'),
-                        ],
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: ['@babel/preset-env', '@babel/preset-react'],
+                            plugins: [
+                                require('@babel/plugin-proposal-object-rest-spread'),
+                                require('@babel/plugin-proposal-class-properties'),
+                            ],
+                        }
+                    },
+                    {
+                        loader: 'eslint-loader',
+                        options: {
+                            fix: true,
+                            quiet: true,
+                        },
                     }
-                }
+                ],
             },
 
             {

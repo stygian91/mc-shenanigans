@@ -5,7 +5,7 @@ const createConnection = require('../create-connection');
 const onErrorDefault = (error, req, res) => {
     res
         .status(500)
-        .send({ success: false, error: error.toString() });
+        .send({ success: false, error: error });
 };
 
 const validateReqDefault = (req, res) => true;
@@ -20,7 +20,7 @@ module.exports =
     if (!validateReq(req, res)) {
         res
             .status(400)
-            .send({success: false, error: {code: 'API_INVALID_ARGS', message: 'Invalid argument(s).'}});
+            .send({ success: false, error: { code: 'API_INVALID_ARGS', message: 'Invalid argument(s).' } });
         return;
     }
 

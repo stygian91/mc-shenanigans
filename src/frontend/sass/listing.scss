@@ -1,5 +1,13 @@
 .listing {
     .title { margin-bottom: 50px; }
+
+    .table {
+        .row-actions {
+            width: 200px;
+
+            .btn + .btn { margin-left: 15px; }
+        }
+    }
 }
 
 .list-paging {
