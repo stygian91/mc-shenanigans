@@ -1,6 +1,7 @@
 import { put, all, call, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
 import addItem from '../api/add-item';
+import takeFirst from './take-first';
 import {
   REQUEST_ADD_ITEM,
   REQUEST_ADD_ITEM_SUCCESS,
@@ -39,7 +40,7 @@ const addLocationErrorWorker = function* ({ error }) {
 
 const addLocationWatcher = function* () {
   yield all([
-    takeLatest(REQUEST_ADD_ITEM, addLocationWorker),
+    takeFirst(REQUEST_ADD_ITEM, addLocationWorker),
     takeEvery(REQUEST_ADD_ITEM_SUCCESS, addLocationSuccessWorker),
     takeEvery(REQUEST_ADD_ITEM_ERROR, addLocationErrorWorker),
   ]);

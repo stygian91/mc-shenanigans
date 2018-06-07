@@ -1,7 +1,7 @@
 /**
  * External Dependencies:
  */
-import { put, call, takeEvery, takeLatest, all, select } from 'redux-saga/effects';
+import { put, call, takeEvery, all, select } from 'redux-saga/effects';
 
 /**
  * Internal Dependencies:
@@ -15,6 +15,7 @@ import {
   requestItems,
 } from '../actions';
 import deleteItem from '../api/delete-item';
+import takeFirst from './take-first';
 
 const deleteWorker = function* ({ name }) {
   try {
@@ -41,7 +42,7 @@ const deleteErrorWorker = function* (error) {
 
 const deleteWatcher = function* () {
   yield all([
-    takeLatest(REQUEST_DELETE_ITEM, deleteWorker),
+    takeFirst(REQUEST_DELETE_ITEM, deleteWorker),
     takeEvery(REQUEST_DELETE_ITEM_SUCCESS, deleteSuccessWorker),
     takeEvery(REQUEST_DELETE_ITEM_ERROR, deleteErrorWorker),
   ]);
