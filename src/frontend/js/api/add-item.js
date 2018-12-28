@@ -5,3 +5,4 @@ export default ({ name, ...coords }) => axios({
   method: 'POST',
   data: coords,
 });
+

@@ -1,23 +1,11 @@
 import React from 'react';
 
+import Row from './Row';
+
 // TODO: show confirmation popup on delete
 const Table = (props) => {
   const rows = props.items.map(item => (
-    <tr key={item.name}>
-      <td>{item.name}</td>
-      <td>{item.x}</td>
-      <td>{item.y}</td>
-      <td>{item.z}</td>
-      <td className="row-actions">
-        <button className="btn btn-primary">Edit</button>
-        <button
-          className="btn btn-danger"
-          onClick={() => props.requestDeleteItem(item.name)}
-        >
-          Delete
-        </button>
-      </td>
-    </tr>
+    <Row item={item} requestDeleteItem={props.requestDeleteItem} key={item.name} />
   ));
 
   return (

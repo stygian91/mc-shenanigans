@@ -1,4 +1,4 @@
-import { put, all, call, takeLatest, takeEvery, select } from 'redux-saga/effects';
+import { put, all, call, takeEvery, select } from 'redux-saga/effects';
 
 import addItem from '../api/add-item';
 import takeFirst from './take-first';
